@@ -1,3 +1,7 @@
+require_relative './sudoku'
+require_relative './sudoku_validator'
+require_relative './outcome'
+
 class Validator
   def initialize(puzzle_string)
     @puzzle_string = puzzle_string
@@ -8,10 +12,9 @@ class Validator
   end
 
   def validate
-    # Start creating your solution here.
-    #
-    # It's likely that you'll want to have many more classes than this one that
-    # was provided for you. Don't be hesistant to extract new objects (and
-    # write tests for them).
+    sudoku = Sudoku.parse(@puzzle_string)
+    sudoku_validator = SudokuValidator.new(sudoku.grid)
+    outcome = Outcome.new(sudoku_validator)
+    outcome.message
   end
 end
